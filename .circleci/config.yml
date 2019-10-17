@@ -20,8 +20,8 @@ jobs:
           name: Create package
           command: |
             VERSION=$CIRCLE_TAG
-            LOCAL_PATH="./version_set.yaml"
-            S3_FILENAME="test-versions/${VERSION}/version_set.yaml"
+            LOCAL_PATH="./version_sets.yaml"
+            S3_FILENAME="test-versions/${VERSION}/version_sets.yaml"
             S3_PATH="s3://${S3_BUCKET}/${S3_FILENAME}"
             aws s3 cp $LOCAL_PATH $S3_PATH
             aws s3api put-object-acl --bucket ${S3_BUCKET} --key ${S3_FILENAME} --acl public-read
