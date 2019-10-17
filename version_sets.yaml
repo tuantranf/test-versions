@@ -1,5 +1,5 @@
-version: 0.1.1
+version: 0.1.2
 require:
-  test-cli: 0.0.13
+  test-cli: 0.0.14
   test-app: 0.0.5
   test-core: 0.1.0
