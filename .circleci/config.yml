@@ -1,0 +1,27 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@0.1.16
+  
+workflows:
+  version: 2
+  release:
+    jobs:
+      - update_package:
+          filters:
+            tags:
+              only: /.*/
+jobs:
+  update_package:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup
+      - run:
+          name: Create package
+          command: |
+            VERSION=$CIRCLE_TAG
+            LOCAL_PATH="./version_set.yaml"
+            S3_FILENAME="test-versions/${VERSION}/version_set.yaml"
+            S3_PATH="s3://${S3_BUCKET}/${S3_FILENAME}"
+            aws s3 cp $LOCAL_PATH $S3_PATH
+            aws s3api put-object-acl --bucket ${S3_BUCKET} --key ${S3_FILENAME} --acl public-read
