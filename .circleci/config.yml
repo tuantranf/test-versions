@@ -10,6 +10,8 @@ workflows:
           filters:
             tags:
               only: /.*/
+            branchs:
+              only: test-release
 jobs:
   update_package:
     executor: aws-cli/default
